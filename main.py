@@ -1,6 +1,5 @@
 
 import time
-
 import requests
 import dotenv
 import os
@@ -9,6 +8,9 @@ import image_builder
 
 dotenv.load_dotenv()
 TOKEN = os.environ["TOKEN"]
+if not TOKEN:
+    raise ValueError("TOKEN environment variable is not set.")
+
 
 url = "https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token"
 
