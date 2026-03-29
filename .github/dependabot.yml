@@ -1,0 +1,26 @@
+version: 2
+updates:
+  # For pip (requirements.txt)
+  - package-ecosystem: "pip"
+    directory: "/" 
+    schedule:
+      interval: "weekly" 
+      day: "sunday"      
+      time: "04:00"      # UTC time
+    open-pull-requests-limit: 5
+    allow:
+      - dependency-type: "all" 
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  # For GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    commit-message:
+      prefix: "ci"
+  
