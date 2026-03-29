@@ -54,28 +54,6 @@ while status['image_status']['status'] not in ["success", "failure"]:
 print(f"Final compose status: {status['image_status']['status']}")
 
 print(json.dumps(status, indent=4))
-# r = api_client.create_compose(
-#     name="My_image", 
-#     distribution="rhel-90",
-#     data={}
-# )
-
-
-
-# id = r["id"]
-# print(f"Compose ID: {id}")
-
-
-# status = api_client.get_compose_status(id)
-# print(json.dumps(status, indent=4))
-
-# sleep_time = 30
-# while status['image_status']['status'] not in ["success", "failure"]:
-#     print(f"Compose status: {status['image_status']['status']}. Checking again in {sleep_time} seconds...")
-#     time.sleep(sleep_time)
-#     status = api_client.get_compose_status(id)  
-    
-
       
 
 
