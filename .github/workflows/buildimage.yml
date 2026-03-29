@@ -1,0 +1,46 @@
+name: Build image
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # release: [rhel-8, rhel-9, rhel-10]
+        release: [rhel-10]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Enable cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/pip
+          key: pip-${{ runner.os }}-${{ hashFiles('**/requirements.txt') }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Execute builder
+        id: build  
+        run: python main.py --distribution ${{ matrix.release }} --template compose_image.json --deleteold --ci
+        env:
+          REDHAT_CONSOLE_ACCOUNT: ${{ secrets.REDHAT_CONSOLE_ACCOUNT }}
+          REDHAT_CONSOLE_SECRET: ${{ secrets.REDHAT_CONSOLE_SECRET }}
+
+      - name: Show output
+        run: |
+          echo "Image ID: ${{ steps.build.outputs.id }}"
+          echo "Image URL: ${{ steps.build.outputs.url }}"

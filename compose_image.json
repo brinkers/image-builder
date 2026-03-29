@@ -1,0 +1,52 @@
+{
+  "client_id": "ui",
+  "customizations": {
+    "filesystem": [
+      {
+        "min_size": 10737418240,
+        "mountpoint": "/"
+      },
+      {
+        "min_size": 10737418240,
+        "mountpoint": "/home"
+      }
+    ],
+    "hostname": "ansible-template",
+    "locale": {
+      "languages": [
+        "en_AU.UTF-8"
+      ]
+    },
+    "packages": [
+      "langpacks-en"
+    ],
+    "partitioning_mode": "lvm",
+    "timezone": {
+      "timezone": "Australia/Melbourne"
+    },
+    "users": [
+      {
+        "groups": [
+          "wheel"
+        ],
+        "hasPassword": true,
+        "name": "ansible-setup",
+        "password": "$6$v/IDUWNCxKdVUjy2$Th2B9a5Wq72bm.j3ydqRo2ke/b6JfPEUTJ0IPt6IEZtNKkLb3JdIcm7p15t2Viz5.lScJ1acxk3E6hVLRJ0XZ."
+      }
+    ]
+  },
+  "distribution": "rhel-10",
+  "image_description": "test bp for api",
+  "image_name": "StandardImage",
+  "image_requests": [
+    {
+      "architecture": "x86_64",
+      "image_type": "vsphere-ova",
+      "snapshot_date": "2026-03-30T00:00:00.000Z",
+      "upload_request": {
+        "options": {},
+        "type": "aws.s3"
+      }
+    }
+  ]
+}
