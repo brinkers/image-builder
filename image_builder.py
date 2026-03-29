@@ -1,6 +1,4 @@
-from typing import Any
-from wsgiref import headers
-
+import logging
 import requests
 
 
@@ -9,11 +7,13 @@ class ImageBuilderClient:
 
     def __init__(self, token_key=None):
         self.token_key = token_key
+        self.logger = logging.getLogger(__name__)
 
-    def _call_api(self, method: str, endpoint: str, **params) -> Any:
+    def _call_api(self, method: str, endpoint: str, **params): 
         headers = {"Content-Type": "application/json"}
         if self.token_key:
             headers.update({"Authorization": f"Bearer {self.token_key}"})
+        self.logger.debug(f"Calling {method} {endpoint} with params {params}")
         response  = requests.request(method, f"{self.BASE}/{endpoint}", params=params, headers=headers)
         response.raise_for_status()
         return response.json()
