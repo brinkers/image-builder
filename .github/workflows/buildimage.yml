@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - dev
   workflow_dispatch:
 
 jobs:
@@ -10,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # release: [rhel-8, rhel-9, rhel-10]
-        release: [rhel-10]
+        release: [rhel-8, rhel-9, rhel-10]
 
     steps:
       - name: Checkout code
